@@ -107,15 +107,14 @@ namespace SteamBulkActivator
             {
                 finalStr += resp.Key;
                 foreach (var key in resp.Value)
-                    finalStr += $"\n{key}";
+                    finalStr += $"\r\n{key}";
 
-                finalStr += "\n\n";
+                finalStr += "\r\n\r\n";
             }
 
-            string location = Path.Combine(Application.StartupPath, $"Results {Utils.GetTimestamp()}.txt");
+            if (!Directory.Exists(Path.Combine(Application.StartupPath, "log"))) Directory.CreateDirectory(Path.Combine(Application.StartupPath, "log"));
+            string location = Path.Combine(Application.StartupPath, $"log\\Results {Utils.GetTimestamp()}.txt");
             File.WriteAllText(location, finalStr.Trim());
-
-            Process.Start(location);
             Close();
         }
 
